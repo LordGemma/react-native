@@ -31,8 +31,7 @@ class App extends Component {
   }
 
   render() {
-    const { counter: {count} } = this.props;
-    console.log(changeCount);    
+    const { counter: {count} } = this.props;   
 
     return (
       <View styles={styles.container}>
