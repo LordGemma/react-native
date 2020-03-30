@@ -2,11 +2,14 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ebebeb',
-  },
-  section: {
     backgroundColor: '#fff',
-    padding: 10,
-    marginTop: 10,
+  },
+  //   cartBtn: {
+  //     width: '100%',
+  //   },
+  wishBtn: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderWidth: 0,
   },
 });

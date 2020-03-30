@@ -2,11 +2,12 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ebebeb',
+    alignItems: 'center',
+    marginRight: 20,
   },
-  section: {
-    backgroundColor: '#fff',
-    padding: 10,
+  title: {
+    textTransform: 'uppercase',
+    fontSize: 12,
     marginTop: 10,
   },
 });
