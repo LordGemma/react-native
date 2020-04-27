@@ -4,20 +4,17 @@ export const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  authContainer: {
-    width: '80%',
-    maxWidth: 400,
-    maxHeight: 400,
-    padding: 20,
-  },
   buttonContainer: {
     marginTop: 10,
   },
   contentLeft: {
     alignSelf: 'flex-end',
   },
+  inputContainer: {
+    marginTop: 10,
+  },
   input: {
-    borderBottomColor: '#333',
+    borderBottomColor: '#000',
     borderBottomWidth: 1,
   },
   uppercase: {

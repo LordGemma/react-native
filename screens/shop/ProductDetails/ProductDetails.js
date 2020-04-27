@@ -83,8 +83,6 @@ const ProductDetails = props => {
     );
   }
 
-  console.log(selectedProduct.description);
-
   return (
     <ScrollView style={styles.container}>
       <Info {...selectedProduct} />

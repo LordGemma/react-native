@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     justifyContent: 'center',
+    paddingTop: 150,
   },
   pageTitle: {
     marginHorizontal: 50,
@@ -14,4 +15,9 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto, Helvetica, sans-serif',
     marginBottom: 50,
   },
+  back: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+  }
 });

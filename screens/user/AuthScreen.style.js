@@ -6,10 +6,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   authContainer: {
-    width: '80%',
-    maxWidth: 400,
-    maxHeight: 400,
-    padding: 20,
+    flex: 1,
+    paddingTop: 100,
   },
   buttonContainer: {
     marginTop: 10,

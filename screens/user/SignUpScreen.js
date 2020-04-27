@@ -1,6 +1,6 @@
 import React from 'react';
-import {ScrollView, View, KeyboardAvoidingView} from 'react-native';
-import {Input, Button} from 'react-native-elements';
+import {View, KeyboardAvoidingView} from 'react-native';
+import {Input, Button, Icon} from 'react-native-elements';
 
 import {styles} from './SignUpScreen.style';
 import Layout from './Layout';
@@ -8,27 +8,27 @@ import Layout from './Layout';
 const SignUpScreen = props => {
   return (
     <KeyboardAvoidingView
+      enabled={false}
       behavior="padding"
-      keyboardVerticalOffset={50}
       style={styles.screen}>
-      <Layout>
+      <Layout isBackButton {...props}>
         <Input
-          containerStyle={{marginTop: 10}}
+          containerStyle={styles.inputContainer}
           style={styles.input}
           placeholder="Full Name"
         />
         <Input
-          containerStyle={{marginTop: 10}}
+          containerStyle={styles.inputContainer}
           style={styles.input}
           placeholder="Email Address"
         />
         <Input
-          containerStyle={{marginTop: 10}}
+          containerStyle={styles.inputContainer}
           style={styles.input}
           placeholder="Password"
         />
         <Input
-          containerStyle={{marginTop: 10}}
+          containerStyle={styles.inputContainer}
           style={styles.input}
           placeholder="Confirm Password"
         />
@@ -55,7 +55,7 @@ const SignUpScreen = props => {
 };
 
 export const screenOptions = {
-  title: '',
+  headerShown: false,
 };
 
 export default SignUpScreen;

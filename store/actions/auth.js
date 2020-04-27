@@ -2,9 +2,26 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {baseUrl} from '../constants';
 
 export const SIGNUP = 'SIGNUP';
-export const LOGIN = 'LOGIN';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
+export const SET_DID_TRY_AL = 'SET_DID_TRY_AL';
+
+const saveDataToStorage = async token => {
+  try {
+    await AsyncStorage.setItem(
+      'userData',
+      JSON.stringify({
+        token,
+      }),
+    );
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const setDidTryAL = () => {
+  return {type: SET_DID_TRY_AL};
+};
 
 export const authenticate = token => {
   return dispatch => {
@@ -49,18 +66,5 @@ export const login = (loginName, password) => {
 
 export const logout = () => {
   AsyncStorage.removeItem('userData');
-  return {type: LOGOUT};
-};
-
-const saveDataToStorage = async token => {
-  try {
-    await AsyncStorage.setItem(
-      'userData',
-      JSON.stringify({
-        token,
-      }),
-    );
-  } catch (err) {
-    throw err;
-  }
+  return dispatch => dispatch({type: LOGOUT});
 };
