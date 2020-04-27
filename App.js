@@ -1,31 +1,24 @@
+import 'react-native-gesture-handler';
 import React, {Component} from 'react';
-import {ScrollView} from 'react-native';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import ReduxThunk from 'redux-thunk';
 
 if (__DEV__) {
   import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
 }
 
-import {authReq} from './pages/services/auth';
-import {styles} from './App.style';
-import Login from './pages/Login/Login';
-import SignUp from './pages/SignUp/SignUp';
-import Main from './pages/Main/Main';
-import ProductDetails from './pages/ProductDetails/ProductDetails';
+import AppNavigator from './navigation/AppNavigator';
+import {rootReducer} from './store/rootReducer';
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 class App extends Component {
-  async componentDidMount() {
-    const response = await authReq();
-    console.log(response);
-  }
-
   render() {
     return (
-      <ScrollView>
-        {/* <ProductDetails /> */}
-        {/* <Main /> */}
-        {/* <Login /> */}
-        <SignUp />
-      </ScrollView>
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
     );
   }
 }
