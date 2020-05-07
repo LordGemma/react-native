@@ -1,13 +1,16 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {View, ActivityIndicator, FlatList, SafeAreaView} from 'react-native';
+import {View, ActivityIndicator, FlatList} from 'react-native';
 
 import * as categoryActions from '../../../store/actions/categories';
 import {styles} from './CategoriesList.style';
 import Colors from '../../../constants/Colors';
 import CategoryItem from '../../../components/shop/CategoryItem';
+import {useNetInfo} from '@react-native-community/netinfo';
+import {connectionDialog} from '../../../store/actions/dialog';
 
 const CategoriesList = props => {
+  const netInfo = useNetInfo();
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
@@ -16,6 +19,16 @@ const CategoriesList = props => {
   const dispatch = useDispatch();
 
   const loadCategories = useCallback(async () => {
+    // if (!netInfo.isConnected) {
+    //   dispatch(
+    //     connectionDialog(
+    //       true,
+    //       'No internet connection!\n Please check it',
+    //       'exclamation-circle',
+    //     ),
+    //   );
+    //   return;
+    // }
     setError(null);
     setIsRefreshing(true);
     try {
@@ -50,7 +63,7 @@ const CategoriesList = props => {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.categories}>
         <FlatList
           onRefresh={loadCategories}
@@ -68,7 +81,7 @@ const CategoriesList = props => {
           )}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

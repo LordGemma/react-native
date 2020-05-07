@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {baseUrl} from '../constants';
+import ErrorHandler from '../../utils/errorHandler';
 
 export const SIGNUP = 'SIGNUP';
 export const AUTHENTICATE = 'AUTHENTICATE';
@@ -15,7 +16,7 @@ const saveDataToStorage = async token => {
       }),
     );
   } catch (err) {
-    throw err;
+    ErrorHandler(err);
   }
 };
 
@@ -55,7 +56,7 @@ export const login = (loginName, password) => {
       } else if (errorId === 'INVALID_PASSWORD') {
         message = 'This password is not valid!';
       }
-      throw new Error(message);
+      ErrorHandler(new Error(message));
     }
 
     const resData = response;

@@ -1,5 +1,6 @@
 import Product from '../../models/product';
 import {baseUrl} from '../constants';
+import ErrorHandler from '../../utils/errorHandler';
 
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const SET_PRODUCT_DETAILS = 'SET_PRODUCT_DETAILS';
@@ -20,7 +21,7 @@ export const fetchProducts = () => {
         );
 
         if (!response.ok) {
-          throw new Error('Something went wrong!');
+          ErrorHandler(new Error('Something went wrong!'));
         }
 
         const resData = await response.json();
@@ -70,7 +71,7 @@ export const fetchProducts = () => {
         groupedProducts,
       });
     } catch (err) {
-      throw err;
+      ErrorHandler(err);
     }
   };
 };
@@ -82,7 +83,7 @@ export const fetchProductDetails = id => {
     });
 
     if (!response.ok) {
-      throw new Error('Something went wrong!');
+      ErrorHandler(new Error('Something went wrong!'));
     }
 
     const resData = await response.json();

@@ -6,7 +6,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {Platform, SafeAreaView, View, Share, Linking} from 'react-native';
+import {Platform, View, Share, Linking} from 'react-native';
 import {Button, Divider, Icon, Text} from 'react-native-elements';
 
 import {
@@ -99,7 +99,7 @@ export const AccountNavigator = () => {
             <View style={styles.drawerHeader}>
               <Text style={styles.drawerTitle}>Ecommerce Store</Text>
             </View>
-            <SafeAreaView forceInset={{top: 'always', horizontal: 'never'}}>
+            <View forceInset={{top: 'always', horizontal: 'never'}}>
               <Text h4Style={styles.sectionTitle} h4>
                 My Account
               </Text>
@@ -171,7 +171,7 @@ export const AccountNavigator = () => {
                   dispatch(authActions.logout());
                 }}
               />
-            </SafeAreaView>
+            </View>
           </View>
         );
       }}

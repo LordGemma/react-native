@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
+import React from 'react';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
@@ -10,17 +10,18 @@ if (__DEV__) {
 
 import AppNavigator from './navigation/AppNavigator';
 import {rootReducer} from './store/rootReducer';
+import {NetworkProvider} from './containers/NetworkProvider';
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
+const App = () => {
+  return (
+    <Provider store={store}>
+      <NetworkProvider>
         <AppNavigator />
-      </Provider>
-    );
-  }
-}
+      </NetworkProvider>
+    </Provider>
+  );
+};
 
 export default App;

@@ -1,5 +1,6 @@
 import {baseUrl} from '../constants';
 import Category from '../../models/category';
+import ErrorHandler from '../../utils/errorHandler';
 
 export const SET_CATEGORIES = 'SET_CATEGORIES';
 
@@ -11,7 +12,7 @@ export const fetchCategories = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Something went wrong!');
+        ErrorHandler(new Error('Something went wrong!'));
       }
 
       const resData = await response.json();
@@ -28,7 +29,7 @@ export const fetchCategories = () => {
         categories: loadedCategory,
       });
     } catch (err) {
-      throw err;
+      ErrorHandler(err);
     }
   };
 };
