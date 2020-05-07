@@ -1,16 +1,11 @@
 import React, {useState, useEffect, useReducer, useCallback} from 'react';
-import {
-  View,
-  KeyboardAvoidingView,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
+import {View, KeyboardAvoidingView, Alert} from 'react-native';
 import {useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Input, Button} from 'react-native-elements';
+import {Button} from 'react-native-elements';
+import Input from '../../components/UI/Input';
 
 import {styles} from './AuthScreen.style';
-import Colors from '../../constants/Colors';
 import * as authActions from '../../store/actions/auth';
 import Layout from './Layout';
 import {AUTHENTICATE} from '../../store/actions/auth';
@@ -64,7 +59,7 @@ const AuthScreen = props => {
   }, [error]);
 
   const authHandler = async () => {
-    let action = authActions.login(
+    const action = authActions.login(
       formState.inputValues.login,
       formState.inputValues.password,
     );
@@ -72,7 +67,6 @@ const AuthScreen = props => {
     setIsLoading(true);
     try {
       await dispatch(action);
-      // props.navigation.navigate('Shop');
     } catch (err) {
       console.log(err);
       setError(err.message);
@@ -80,25 +74,13 @@ const AuthScreen = props => {
     }
   };
 
-  const inputChangeLoginHandler = useCallback(
-    inputValue => {
+  const inputChangeHandler = useCallback(
+    (inputIdentifier, inputValue, inputValidity) => {
       dispatchFormState({
         type: FORM_INPUT_UPDATE,
         value: inputValue,
-        isValid: true,
-        input: 'login',
-      });
-    },
-    [dispatchFormState],
-  );
-
-  const inputChangePasswordHandler = useCallback(
-    inputValue => {
-      dispatchFormState({
-        type: FORM_INPUT_UPDATE,
-        value: inputValue,
-        isValid: true,
-        input: 'password',
+        isValid: inputValidity,
+        input: inputIdentifier,
       });
     },
     [dispatchFormState],
@@ -113,56 +95,46 @@ const AuthScreen = props => {
         <Input
           id="login"
           required
-          login
           autoCapitalize="none"
           initialValue=""
-          keyboardType="default"
-          onChangeText={inputChangeLoginHandler}
-          containerStyle={{marginTop: 10}}
-          style={styles.input}
-          errorMessage="Please enter a valid login."
+          onInputChange={inputChangeHandler}
+          errorText="Please enter login."
           placeholder="Login"
         />
         <Input
           id="password"
-          initialValue=""
-          onChangeText={inputChangePasswordHandler}
+          placeholder="Password"
           keyboardType="default"
           secureTextEntry
           required
           minLength={5}
           autoCapitalize="none"
-          inputStyle={{color: '#333'}}
           errorText="Please enter a valid password."
-          style={styles.input}
-          placeholder="Password"
+          onInputChange={inputChangeHandler}
+          initialValue=""
         />
         <View style={styles.buttonContainer}>
-          {isLoading ? (
-            <ActivityIndicator size="small" color={Colors.primary} />
-          ) : (
-            <>
-              <Button
-                buttonStyle={styles.contentLeft}
-                titleStyle={{fontSize: 18}}
-                title="Forgot Password?"
-                type="clear"
-                onPress={() => console.log('pressed')}
-              />
-              <Button
-                titleStyle={styles.uppercase}
-                title="Sign In"
-                onPress={authHandler}
-              />
-              <Button
-                title="New here? Sign Up"
-                buttonStyle={styles.signUpBtn}
-                titleStyle={{fontSize: 18}}
-                type="clear"
-                onPress={() => props.navigation.navigate('SignUp')}
-              />
-            </>
-          )}
+          <Button
+            buttonStyle={styles.contentLeft}
+            titleStyle={{fontSize: 18}}
+            title="Forgot Password?"
+            type="clear"
+            onPress={() => console.log('pressed')}
+          />
+          <Button
+            titleStyle={styles.uppercase}
+            title="Sign In"
+            // disabled={!formState.formIsValid}
+            loading={isLoading}
+            onPress={authHandler}
+          />
+          <Button
+            title="New here? Sign Up"
+            buttonStyle={styles.signUpBtn}
+            titleStyle={{fontSize: 18}}
+            type="clear"
+            onPress={() => props.navigation.navigate('SignUp')}
+          />
         </View>
         <View style={styles.buttonContainer}>
           <Button

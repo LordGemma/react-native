@@ -88,7 +88,7 @@ const ProductList = props => {
   }
 
   return (
-    <ScrollView>
+    <View>
       {products.map(({categoryId, categoryName, data}) => {
         const productList = data;
         productList.length = 4;
@@ -114,7 +114,7 @@ const ProductList = props => {
           </View>
         );
       })}
-    </ScrollView>
+    </View>
   );
 };
 

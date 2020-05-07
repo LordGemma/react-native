@@ -5,10 +5,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  authContainer: {
-    flex: 1,
-    paddingTop: 100,
-  },
   buttonContainer: {
     marginTop: 10,
   },
@@ -22,10 +18,6 @@ export const styles = StyleSheet.create({
   },
   signUpBtn: {
     marginVertical: 10,
-  },
-  input: {
-    borderBottomColor: '#333',
-    borderBottomWidth: 1,
   },
   skipBtn: {
     textTransform: 'uppercase',

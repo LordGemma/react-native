@@ -12,7 +12,7 @@ export const fetchCategories = () => {
       });
 
       if (!response.ok) {
-        ErrorHandler(new Error('Something went wrong!'));
+        ErrorHandler('Something went wrong!', dispatch);
       }
 
       const resData = await response.json();
@@ -29,7 +29,7 @@ export const fetchCategories = () => {
         categories: loadedCategory,
       });
     } catch (err) {
-      ErrorHandler(err);
+      ErrorHandler(err, dispatch);
     }
   };
 };

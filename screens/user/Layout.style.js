@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingTop: 150,
+    paddingHorizontal: 20,
   },
   pageTitle: {
     marginHorizontal: 50,

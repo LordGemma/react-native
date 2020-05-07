@@ -7,7 +7,7 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 export const SET_DID_TRY_AL = 'SET_DID_TRY_AL';
 
-const saveDataToStorage = async token => {
+const saveDataToStorage = async (token, dispatch) => {
   try {
     await AsyncStorage.setItem(
       'userData',
@@ -16,7 +16,7 @@ const saveDataToStorage = async token => {
       }),
     );
   } catch (err) {
-    ErrorHandler(err);
+    ErrorHandler(err, dispatch);
   }
 };
 
@@ -49,19 +49,14 @@ export const login = (loginName, password) => {
     }
 
     if (!response.success) {
-      const errorId = response.error;
-      let message = 'Something went wrong!';
-      if (errorId === 'EMAIL_NOT_FOUND') {
-        message = 'This email could not be found!';
-      } else if (errorId === 'INVALID_PASSWORD') {
-        message = 'This password is not valid!';
-      }
-      ErrorHandler(new Error(message));
+      console.log(response, loginName, password);
+      const error = response.error;
+      ErrorHandler(error, dispatch);
     }
 
     const resData = response;
     dispatch(authenticate(resData.token));
-    saveDataToStorage(resData.token);
+    saveDataToStorage(resData.token, dispatch);
   };
 };
 

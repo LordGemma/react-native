@@ -19,16 +19,16 @@ const CategoriesList = props => {
   const dispatch = useDispatch();
 
   const loadCategories = useCallback(async () => {
-    // if (!netInfo.isConnected) {
-    //   dispatch(
-    //     connectionDialog(
-    //       true,
-    //       'No internet connection!\n Please check it',
-    //       'exclamation-circle',
-    //     ),
-    //   );
-    //   return;
-    // }
+    if (!netInfo.isConnected) {
+      dispatch(
+        connectionDialog(
+          true,
+          'No internet connection!\n Please check it',
+          'exclamation-circle',
+        ),
+      );
+      return;
+    }
     setError(null);
     setIsRefreshing(true);
     try {

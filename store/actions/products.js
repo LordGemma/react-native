@@ -21,7 +21,7 @@ export const fetchProducts = () => {
         );
 
         if (!response.ok) {
-          ErrorHandler(new Error('Something went wrong!'));
+          ErrorHandler('Something went wrong!', dispatch);
         }
 
         const resData = await response.json();
@@ -71,7 +71,7 @@ export const fetchProducts = () => {
         groupedProducts,
       });
     } catch (err) {
-      ErrorHandler(err);
+      ErrorHandler(err, dispatch);
     }
   };
 };
@@ -83,7 +83,7 @@ export const fetchProductDetails = id => {
     });
 
     if (!response.ok) {
-      ErrorHandler(new Error('Something went wrong!'));
+      ErrorHandler('Something went wrong!', dispatch);
     }
 
     const resData = await response.json();
