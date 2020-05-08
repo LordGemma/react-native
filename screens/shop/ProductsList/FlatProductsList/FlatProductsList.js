@@ -7,6 +7,7 @@ import Price from '../../../../components/shop/Price/Price';
 import {styles} from './FlatProductsList.style';
 import Card from '../../../../components/UI/Card';
 import {fetchProductsWithPagination} from '../../../../store/actions/products';
+import Colors from '../../../../constants/Colors';
 
 const FlatProductsList = ({route, navigation}) => {
   const categoryId = route.params.categoryId;
@@ -54,7 +55,7 @@ const FlatProductsList = ({route, navigation}) => {
     if (!isLoading) {
       return null;
     }
-    return <ActivityIndicator />;
+    return <ActivityIndicator size="large" color={Colors.primary} />;
   };
 
   useEffect(() => {
