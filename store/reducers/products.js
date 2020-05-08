@@ -1,9 +1,14 @@
-import {SET_PRODUCTS, SET_PRODUCT_DETAILS} from '../actions/products';
+import {
+  SET_PRODUCTS,
+  SET_PRODUCT_DETAILS,
+  SET_CATEGORY_PRODUCTS,
+} from '../actions/products';
 
 const initialState = {
   availableProducts: [],
   groupedProducts: [],
   productDetails: null,
+  categoryProducts: [],
 };
 
 export default (state = initialState, action) => {
@@ -18,6 +23,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         productDetails: action.productDetails,
+      };
+    case SET_CATEGORY_PRODUCTS:
+      return {
+        ...state,
+        categoryProducts: action.payload,
       };
   }
   return state;

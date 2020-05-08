@@ -1,9 +1,11 @@
+import _ from 'lodash';
 import Product from '../../models/product';
 import {baseUrl} from '../constants';
 import ErrorHandler from '../../utils/errorHandler';
 
 export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const SET_PRODUCT_DETAILS = 'SET_PRODUCT_DETAILS';
+export const SET_CATEGORY_PRODUCTS = 'SET_CATEGORY_PRODUCTS';
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
@@ -92,5 +94,47 @@ export const fetchProductDetails = id => {
       type: SET_PRODUCT_DETAILS,
       productDetails: resData,
     });
+  };
+};
+
+export const fetchProductsWithPagination = (categoryId, page) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await fetch(
+        `${baseUrl}product/filter&category_id=${categoryId}&page=${page}&rows=4`,
+        {
+          method: 'GET',
+        },
+      );
+
+      if (!response.ok) {
+        ErrorHandler('Something went wrong!', dispatch);
+      }
+
+      const resData = await response.json();
+
+      const products = resData.rows.map(item => {
+        const {
+          id,
+          cell: {description, name, price, thumb},
+        } = item;
+        return new Product(
+          id,
+          name,
+          categoryId,
+          '',
+          `http:${thumb}`,
+          description,
+          price,
+        );
+      });
+
+      dispatch({
+        type: SET_CATEGORY_PRODUCTS,
+        payload: _.concat(getState().products.categoryProducts, products),
+      });
+    } catch (error) {
+      ErrorHandler('Something went wrong!', dispatch);
+    }
   };
 };

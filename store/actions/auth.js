@@ -49,7 +49,6 @@ export const login = (loginName, password) => {
     }
 
     if (!response.success) {
-      console.log(response, loginName, password);
       const error = response.error;
       ErrorHandler(error, dispatch);
     }
