@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   card: {
-    shadowColor: 'black',
+    shadowColor: '#000',
     shadowOpacity: 0.26,
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 8,

@@ -29,4 +29,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: 2,
     marginTop: 100,
   },
+  dialogButtonWrap: {
+    marginTop: 20,
+  }
 });

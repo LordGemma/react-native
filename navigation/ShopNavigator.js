@@ -32,6 +32,9 @@ import ProductDetails, {
 } from '../screens/shop/ProductDetails/ProductDetails';
 import {styles} from './ShopNavigator.style';
 import * as authActions from '../store/actions/auth';
+import Category, {
+  screenOptions as categoryOptions,
+} from '../screens/shop/CategoriesList/Category';
 
 const defaultNavOptions = {
   headerStyle: {
@@ -80,6 +83,11 @@ export const ProductsNavigator = () => {
         name="ProductDetails"
         component={ProductDetails}
         options={productDetailsOptions}
+      />
+      <ProductsStackNavigator.Screen
+        name="Category"
+        component={Category}
+        options={categoryOptions}
       />
     </ProductsStackNavigator.Navigator>
   );

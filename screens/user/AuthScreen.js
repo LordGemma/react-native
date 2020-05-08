@@ -1,14 +1,17 @@
 import React, {useState, useEffect, useReducer, useCallback} from 'react';
 import {View, KeyboardAvoidingView, Alert} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button} from 'react-native-elements';
+import {useNetInfo} from '@react-native-community/netinfo';
 import Input from '../../components/UI/Input';
 
 import {styles} from './AuthScreen.style';
 import * as authActions from '../../store/actions/auth';
 import Layout from './Layout';
 import {AUTHENTICATE} from '../../store/actions/auth';
+import Dialog from '../../components/dialog/Dialog';
+import {connectionDialog} from '../../store/actions/dialog';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -36,9 +39,21 @@ const formReducer = (state, action) => {
 };
 
 const AuthScreen = props => {
+  const netInfo = useNetInfo();
+  const visibility = useSelector(state => state.dialog.isVisible);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const dispatch = useDispatch();
+
+  if (!netInfo.isConnected) {
+    dispatch(
+      connectionDialog(
+        true,
+        'No internet connection!\n Please check it',
+        'exclamation-circle',
+      ),
+    );
+  }
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
@@ -152,6 +167,26 @@ const AuthScreen = props => {
             }
           />
         </View>
+        {!netInfo.isConnected ? (
+          <Dialog>
+            <View style={styles.dialogButtonWrap}>
+              <Button title="Try again" onPress={authHandler} />
+              <Button
+                title="Close"
+                onPress={() => dispatch(connectionDialog(!visibility))}
+              />
+            </View>
+          </Dialog>
+        ) : (
+          <Dialog>
+            <View style={styles.dialogButtonWrap}>
+              <Button
+                title="Close"
+                onPress={() => dispatch(connectionDialog(!visibility))}
+              />
+            </View>
+          </Dialog>
+        )}
       </Layout>
     </KeyboardAvoidingView>
   );

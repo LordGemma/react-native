@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {connectionDialog} from '../../store/actions/dialog';
 import {styles} from './Dialog.style';
 
-const Dialog = () => {
+const Dialog = props => {
   const visibility = useSelector(state => state.dialog.isVisible);
   const message = useSelector(state => state.dialog.message);
   const icon = useSelector(state => state.dialog.icon);
@@ -28,12 +28,14 @@ const Dialog = () => {
         onBackdropPress={toggleOverlay}>
         <View style={styles.container}>
           <Icon
+            containerStyle={styles.iconContainer}
             iconStyle={styles.icon}
             size={56}
             name={icon}
             type="font-awesome"
           />
           <Text style={styles.message}>{message}</Text>
+          {props.children}
         </View>
       </Overlay>
     </View>

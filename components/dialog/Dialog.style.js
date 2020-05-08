@@ -13,7 +13,10 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
   },
+  iconContainer: {
+    marginBottom: 10,
+  },
   icon: {
     color: Colors.accent,
-  }
+  },
 });
