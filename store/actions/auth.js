@@ -31,6 +31,8 @@ export const authenticate = token => {
 };
 
 export const login = (loginName, password) => {
+  console.log(loginName, password);
+
   return async dispatch => {
     let response = {};
     try {
@@ -61,5 +63,21 @@ export const login = (loginName, password) => {
 
 export const logout = () => {
   AsyncStorage.removeItem('userData');
-  return dispatch => dispatch({type: LOGOUT});
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+
+    try {
+      const formData = new FormData();
+      formData.append('token', token);
+
+      await fetch(`${baseUrl}account/logout`, {
+        method: 'POST',
+        body: formData,
+      });
+    } catch (err) {
+      ErrorHandler(err, dispatch);
+    }
+
+    dispatch({type: LOGOUT});
+  };
 };

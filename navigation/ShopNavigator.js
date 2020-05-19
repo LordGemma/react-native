@@ -6,18 +6,19 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {Platform, View, Share, Linking} from 'react-native';
+import {Platform, View, Linking, ScrollView} from 'react-native';
 import {Button, Divider, Icon, Text} from 'react-native-elements';
+import Share from 'react-native-share';
 
 import {
   MyAccount,
-  MyAccountOptions,
+  myAccountOptions,
   MyCart,
-  MyCartOptions,
+  myCartOptions,
   MyOrders,
-  MyOrdersOptions,
+  myOrdersOptions,
   MyWishList,
-  MyWishListOptions,
+  myWishListOptions,
 } from '../screens/user/UserAccount';
 import AuthScreen, {
   screenOptions as authScreenOptions,
@@ -35,8 +36,13 @@ import * as authActions from '../store/actions/auth';
 import Category, {
   screenOptions as categoryOptions,
 } from '../screens/shop/CategoriesList/Category';
+import AccountNavigatorWrapper from './AccountNavigatorWrapper';
+import OrderDetails, {
+  screenOptions as orderDetailsOptions,
+} from '../screens/user/UserAccount/MyOrders/OrderDetails/OrderDetails';
+import Map, {screenOptions as mapOptions} from '../components/UI/Map';
 
-const defaultNavOptions = {
+export const defaultNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === 'android' ? 'transparent' : Colors.primary,
   },
@@ -50,23 +56,18 @@ const defaultNavOptions = {
 };
 
 const onShare = async () => {
-  try {
-    const result = await Share.share({
-      message:
-        'React Native | A framework for building native apps using React',
+  const options = {
+    url: 'http://bestmarket.ua',
+    message: 'Best market for you!',
+  };
+
+  Share.open(options)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      err && console.log(err);
     });
-    if (result.action === Share.sharedAction) {
-      if (result.activityType) {
-        // shared with activity type of result.activityType
-      } else {
-        // shared
-      }
-    } else if (result.action === Share.dismissedAction) {
-      // dismissed
-    }
-  } catch (error) {
-    alert(error.message);
-  }
 };
 
 const ProductsStackNavigator = createStackNavigator();
@@ -89,6 +90,11 @@ export const ProductsNavigator = () => {
         component={Category}
         options={categoryOptions}
       />
+      <ProductsStackNavigator.Screen
+        name="Map"
+        component={Map}
+        options={mapOptions}
+      />
     </ProductsStackNavigator.Navigator>
   );
 };
@@ -97,13 +103,20 @@ const AccountDrawerNavigator = createDrawerNavigator();
 
 export const AccountNavigator = () => {
   const dispatch = useDispatch();
+  const orderScreens = [
+    {
+      name: 'OrderDetails',
+      component: OrderDetails,
+      options: orderDetailsOptions,
+    },
+  ];
 
   return (
     <AccountDrawerNavigator.Navigator
       initialRouteName="Products"
       drawerContent={props => {
         return (
-          <View style={styles.drawerContainer}>
+          <ScrollView style={styles.drawerContainer}>
             <View style={styles.drawerHeader}>
               <Text style={styles.drawerTitle}>Ecommerce Store</Text>
             </View>
@@ -180,7 +193,7 @@ export const AccountNavigator = () => {
                 }}
               />
             </View>
-          </View>
+          </ScrollView>
         );
       }}
       drawerContentOptions={{
@@ -193,23 +206,48 @@ export const AccountNavigator = () => {
       />
       <AccountDrawerNavigator.Screen
         name="MyAccount"
-        component={MyAccount}
-        options={MyAccountOptions}
+        component={() => (
+          <AccountNavigatorWrapper
+            name="MyAccount"
+            component={MyAccount}
+            options={myAccountOptions}
+          />
+        )}
+        options={myAccountOptions}
       />
       <AccountDrawerNavigator.Screen
         name="MyWishList"
-        component={MyWishList}
-        options={MyWishListOptions}
+        component={() => (
+          <AccountNavigatorWrapper
+            name="MyWishList"
+            component={MyWishList}
+            options={myWishListOptions}
+          />
+        )}
+        options={myWishListOptions}
       />
       <AccountDrawerNavigator.Screen
         name="MyCart"
-        component={MyCart}
-        options={MyCartOptions}
+        component={() => (
+          <AccountNavigatorWrapper
+            name="MyCart"
+            component={MyCart}
+            options={myCartOptions}
+          />
+        )}
+        options={myCartOptions}
       />
       <AccountDrawerNavigator.Screen
         name="MyOrders"
-        component={MyOrders}
-        options={MyOrdersOptions}
+        component={() => (
+          <AccountNavigatorWrapper
+            name="MyOrders"
+            component={MyOrders}
+            options={myOrdersOptions}
+            children={orderScreens}
+          />
+        )}
+        options={myOrdersOptions}
       />
     </AccountDrawerNavigator.Navigator>
   );

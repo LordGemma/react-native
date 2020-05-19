@@ -1,16 +1,16 @@
 export {
   default as MyAccount,
-  screenOptions as MyAccountOptions,
+  screenOptions as myAccountOptions,
 } from './MyAccount/MyAccount';
 export {
   default as MyCart,
-  screenOptions as MyCartOptions,
+  screenOptions as myCartOptions,
 } from './MyCart/MyCart';
 export {
   default as MyOrders,
-  screenOptions as MyOrdersOptions,
+  screenOptions as myOrdersOptions,
 } from './MyOrders/MyOrders';
 export {
   default as MyWishList,
-  screenOptions as MyWishListOptions,
+  screenOptions as myWishListOptions,
 } from './MyWishList/MyWishList';

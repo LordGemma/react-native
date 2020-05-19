@@ -45,15 +45,15 @@ const AuthScreen = props => {
   const [error, setError] = useState();
   const dispatch = useDispatch();
 
-  if (!netInfo.isConnected) {
-    dispatch(
-      connectionDialog(
-        true,
-        'No internet connection!\n Please check it',
-        'exclamation-circle',
-      ),
-    );
-  }
+  // if (!netInfo.isConnected) {
+  //   dispatch(
+  //     connectionDialog(
+  //       true,
+  //       'No internet connection!\n Please check it',
+  //       'exclamation-circle',
+  //     ),
+  //   );
+  // }
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
