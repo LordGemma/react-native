@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {ButtonGroup, Button, CheckBox, Text} from 'react-native-elements';
-import {styles} from './Footer.style';
 
-const Footer = () => {
+import {styles} from './Footer.style';
+import {addToCart} from '../../../../store/actions/cart';
+
+const Footer = ({productId}) => {
   const [isWishList, setIsWishList] = useState(false);
+  const dispatch = useDispatch();
 
   const buttons = [
     {
@@ -21,7 +25,14 @@ const Footer = () => {
         />
       ),
     },
-    'Add To Cart',
+    {
+      element: () => (
+        <Button
+          title="Add To Cart"
+          onPress={() => dispatch(addToCart(productId))}
+        />
+      ),
+    },
   ];
   return (
     <View style={styles.container}>

@@ -98,18 +98,16 @@ const ProductList = props => {
             <FlatList
               data={productList}
               numColumns={2}
-              renderItem={({item}) => {
-                return (
-                  <ProductItem
-                    image={item.imageUrl}
-                    title={item.title}
-                    price={item.price}
-                    onSelect={() => {
-                      selectItemHandler(item.id, item.title);
-                    }}
-                  />
-                );
-              }}
+              renderItem={({item}) => (
+                <ProductItem
+                  image={item.imageUrl}
+                  title={item.title}
+                  price={item.price}
+                  onSelect={() => {
+                    selectItemHandler(item.id, item.title);
+                  }}
+                />
+              )}
             />
           </View>
         );

@@ -41,6 +41,7 @@ import OrderDetails, {
   screenOptions as orderDetailsOptions,
 } from '../screens/user/UserAccount/MyOrders/OrderDetails/OrderDetails';
 import Map, {screenOptions as mapOptions} from '../components/UI/Map';
+import Cart, {screenOptions as cartOptions} from '../screens/shop/Cart/Cart';
 
 export const defaultNavOptions = {
   headerStyle: {
@@ -94,6 +95,11 @@ export const ProductsNavigator = () => {
         name="Map"
         component={Map}
         options={mapOptions}
+      />
+      <ProductsStackNavigator.Screen
+        name="Cart"
+        component={Cart}
+        options={cartOptions}
       />
     </ProductsStackNavigator.Navigator>
   );

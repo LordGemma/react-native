@@ -5,6 +5,10 @@ import {Text} from 'react-native-elements';
 import {styles} from './Price.style';
 
 const Price = ({regularPrice, salePrice}) => {
+  const price =
+    typeof regularPrice === 'string' && regularPrice.includes('$')
+      ? regularPrice.substr(1)
+      : regularPrice;
   let percent;
   if (salePrice) {
     percent =
@@ -14,9 +18,10 @@ const Price = ({regularPrice, salePrice}) => {
   return (
     <View style={styles.price}>
       {salePrice && <Text style={styles.salePrice}>{`$${salePrice}`}</Text>}
-      <Text style={salePrice ? styles.regularPrice : styles.salePrice}>{`$${parseFloat(
-        regularPrice,
-      ).toFixed()}`}</Text>
+      <Text
+        style={
+          salePrice ? styles.regularPrice : styles.salePrice
+        }>{`$${parseFloat(price).toFixed()}`}</Text>
       {salePrice && <Text style={styles.percent}>{`${percent}% Off`}</Text>}
     </View>
   );
