@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {ButtonGroup, Button, CheckBox, Text} from 'react-native-elements';
+import {ButtonGroup, Button, CheckBox} from 'react-native-elements';
+import Toast from 'react-native-toast-module';
 
 import {styles} from './Footer.style';
 import {addToCart} from '../../../../store/actions/cart';
@@ -29,7 +30,11 @@ const Footer = ({productId}) => {
       element: () => (
         <Button
           title="Add To Cart"
-          onPress={() => dispatch(addToCart(productId))}
+          onPress={() => {
+            dispatch(addToCart(productId));
+            Toast.addToCartDefault('Product was added to cart');
+            // Toast.addToCartCustom('Product was added to cart');
+          }}
         />
       ),
     },
