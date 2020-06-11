@@ -95,7 +95,10 @@ const ProductDetails = props => {
         </Text>
         <HtmlView value={selectedProduct.description} />
       </View>
-      <Footer productId={props.route.params.productId} />
+      <Footer
+        productId={props.route.params.productId}
+        product={selectedProduct}
+      />
     </ScrollView>
   );
 };
