@@ -22,7 +22,7 @@
     "appcenter-analytics": "3.0.3",
     "appcenter-crashes": "3.0.3",
     "he": "^1.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.26.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
